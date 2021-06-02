@@ -72,4 +72,14 @@ public class Author {
         return id!=null?id.equals(author.getId()):author.getId()==null;
         
     }
+
+    @Override
+    public String toString() {
+        return "Author{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", books=" + books +
+                '}';
+    }
 }

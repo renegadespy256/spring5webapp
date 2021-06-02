@@ -73,4 +73,14 @@ public class Book {
 
         return this.id != null? this.id.equals(book.getId()):book.getId() == null;
     }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", isbn='" + isbn + '\'' +
+                ", authors=" + authors +
+                '}';
+    }
 }
