@@ -9,6 +9,8 @@ import guru.springframework.spring5webapp.repositories.PublisherRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
+
 @Component
 public class BootStrapData implements CommandLineRunner {
 
@@ -23,31 +25,25 @@ public class BootStrapData implements CommandLineRunner {
     }
 
     @Override
+    @Transactional
     public void run(String... args) throws Exception {
         Author JKR = new Author("J.K.","Rowling");
         Book HP1= new Book("Harry Potter & The Soccer's Stone", "13: 9780747532743");
 
-        JKR.getBooks().add(HP1);
-        HP1.getAuthors().add(JKR);
+        HP1.addAuthors(JKR);
 
         Author GGM = new Author("George","R.R.Martin");
         Book GOT = new Book("The Song of Ice & Fire","10 : 0007477155");
 
-        GGM.getBooks().add(GOT);
-        GOT.getAuthors().add(GGM);
+        GOT.addAuthors(GGM);
 
         System.out.println("Started in bootstrap!");
 
         Publisher pb = new Publisher("Cristiano Messi", "Madrid, Spain");
 
-        HP1.getPublishers().add(pb);
-        pb.getBooks().add(HP1);
+        HP1.setPublisher(pb);
 
-        GOT.getPublishers().add(pb);
-        pb.getBooks().add(GOT);
-
-
-
+        GOT.setPublisher(pb);
 
         publisherRepository.save(pb);
         authorRepository.save(GGM);

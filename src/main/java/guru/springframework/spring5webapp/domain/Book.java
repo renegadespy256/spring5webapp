@@ -13,8 +13,10 @@ public class Book {
 
     private String title;
     private String isbn;
+
     @ManyToOne
-    private Set<Publisher>publishers=new HashSet<>();
+    @JoinColumn(name = "book_id")
+    private Publisher publisher;
 
     @ManyToMany
     @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),
@@ -57,16 +59,18 @@ public class Book {
         return authors;
     }
 
-    public void setAuthors(Set<Author> authors) {
-        this.authors = authors;
+    public void addAuthors(Author author) {
+        this.authors.add(author);
+        author.addBooks(this);
     }
 
-    public Set<Publisher> getPublishers() {
-        return publishers;
+    public Publisher getPublisher() {
+        return publisher;
     }
 
-    public void setPublishers(Set<Publisher> publishers) {
-        this.publishers = publishers;
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
+        publisher.addBooks(this);
     }
 
     @Override
