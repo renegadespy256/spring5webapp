@@ -30,24 +30,31 @@ public class BootStrapData implements CommandLineRunner {
         JKR.getBooks().add(HP1);
         HP1.getAuthors().add(JKR);
 
-        authorRepository.save(JKR);
-        bookRepository.save(HP1);
-
         Author GGM = new Author("George","R.R.Martin");
         Book GOT = new Book("The Song of Ice & Fire","10 : 0007477155");
 
         GGM.getBooks().add(GOT);
         GOT.getAuthors().add(GGM);
 
-        authorRepository.save(GGM);
-        bookRepository.save(GOT);
-
         System.out.println("Started in bootstrap!");
-        System.out.println("Number of books : "+bookRepository.count());
 
         Publisher pb = new Publisher("Cristiano Messi", "Madrid, Spain");
 
+        HP1.getPublishers().add(pb);
+        pb.getBooks().add(HP1);
+
+        GOT.getPublishers().add(pb);
+        pb.getBooks().add(GOT);
+
+
+
+
         publisherRepository.save(pb);
+        authorRepository.save(GGM);
+        bookRepository.save(GOT);
+        authorRepository.save(JKR);
+        bookRepository.save(HP1);
+        System.out.println("Number of books : "+bookRepository.count());
 
         System.out.println("Number of Publishers : "+publisherRepository.count());
 
